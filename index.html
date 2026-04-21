@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Dark Patterns Game</title>
+  <link href="https://fonts.googleapis.com/css2?family=Special+Elite&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="browser">
+  <div class="browser-bar">
+    <div class="browser-dots">
+      <div class="dot dot-r"></div>
+      <div class="dot dot-y"></div>
+      <div class="dot dot-g"></div>
+    </div>
+    <div class="browser-url">www.notevil.com/account/manage-subscription</div>
+  </div>
+
+  <div class="game-area">
+
+    <!-- START -->
+    <div id="screen-start" class="screen active">
+      <div class="start-card">
+        <div class="game-title">The Dark Patterns Game</div>
+        <button class="btn btn-lg" onclick="goToName()">Start</button>
+      </div>
+    </div>
+
+    <!-- NAME -->
+    <div id="screen-name" class="screen">
+      <div class="name-card">
+        <div style="font-size:13px;color:#888;text-transform:uppercase;letter-spacing:0.5px">Your Name</div>
+        <div class="name-badge" id="name-badge">Sneaky Otter</div>
+        <button class="btn btn-md" onclick="randName()">Randomize</button>
+        <button class="btn btn-md" onclick="pickName()">Select</button>
+      </div>
+    </div>
+
+    <!-- HOME -->
+    <div id="screen-home" class="screen">
+      <div class="home-hdr">
+        <div>
+          <div class="hdr-corp">The Not So Evil Corporation</div>
+          <div class="hdr-name" id="hdr-name">NAME</div>
+        </div>
+        <div>
+          <div class="hdr-pts-label">Points:</div>
+          <div class="hdr-pts-val" id="hdr-pts">0</div>
+        </div>
+      </div>
+
+      <div class="home-body">
+        <div class="sub-card">
+          <h2>Cancel Subscription</h2>
+          <div class="sub-label">Current Subscription:</div>
+          <div class="sub-val">Premium 3000<br>USD $1,500</div>
+          <div class="sub-label">Your Next Bill Cycle:</div>
+          <div class="sub-val">November 22nd, 2026</div>
+          <button class="btn-manage" onclick="manageClick()">Modify Subscription</button>
+        </div>
+
+        <div class="cancel-zone">
+          <div class="ad-bait" onclick="adClick()">
+            🎉 YOU MAY HAVE WON! Claim your FREE month — limited time! Click here ➜
+          </div>
+          <button class="btn-cancel-tiny" onclick="beginCancel()">cancel</button>
+        </div>
+      </div>
+
+      <div class="hint-bar">Goal: cancel your free trial before tomorrow's charge. Find the cancel button — it's somewhere at the bottom!</div>
+    </div>
+
+    <!-- FINAL -->
+    <div id="screen-final" class="screen">
+      <div class="final-card">
+        <div class="final-title">Sorry!</div>
+        <div class="final-body">
+          You cannot cancel your subscription online within <strong>5 business days</strong> of the next charge date.<br><br>
+          Please call customer service at:<br>
+          <span class="final-phone">555-555-5555</span>
+          Your next charge date is: <strong>Tomorrow</strong>
+        </div>
+        <div class="final-score" id="final-score"></div>
+        <button class="btn btn-lg" style="margin-top:20px" onclick="resetGame()">Play Again</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- MODAL -->
+<div class="overlay" id="overlay" onclick="outsideClick(event)">
+  <div class="modal" id="modal" onclick="event.stopPropagation()"></div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
