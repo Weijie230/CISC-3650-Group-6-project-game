@@ -19,7 +19,7 @@ const AD_MSGS = [
   '👀 So close to canceling. Crisis averted for us!',
 ];
 
-let G = { name: '', generated: '', points: 0, step: 0 };
+let G = { name: '', generated: '', points: 0, step: 0, rating: 0 };
 
 function pick(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
 
@@ -86,6 +86,7 @@ function pickName() {
 function resetGame() {
   G.points = 0;
   G.step = 0;
+  G.rating = 0;
   showScreen('start');
 }
 
@@ -247,14 +248,21 @@ function showSurvey() {
 
     <div class="survey-q">
       <label>How would you rate your experience?</label>
-      <div class="stars">★★★★★</div>
+      <div class="star-rating" id="survey-stars">
+        <span class="star" onclick="setSurveyRating(1)">★</span>
+        <span class="star" onclick="setSurveyRating(2)">★</span>
+        <span class="star" onclick="setSurveyRating(3)">★</span>
+        <span class="star" onclick="setSurveyRating(4)">★</span>
+        <span class="star" onclick="setSurveyRating(5)">★</span>
+      </div>
+      <div class="rating-msg" id="survey-rating-msg"></div>
     </div>
 
     <div class="survey-q">
       <label>Why are you canceling? (select all that apply)</label>
-      <div class="chk-row"><input type="checkbox" checked> I actually love the service</div>
-      <div class="chk-row"><input type="checkbox" checked> I don't want to miss out on benefits</div>
-      <div class="chk-row"><input type="checkbox" checked> I'll definitely resubscribe soon</div>
+      <div class="chk-row"><input type="checkbox" id="chk-stay-1" checked> I actually love the service</div>
+      <div class="chk-row"><input type="checkbox" id="chk-stay-2" checked> I don't want to miss out on benefits</div>
+      <div class="chk-row"><input type="checkbox" id="chk-stay-3" checked> I'll definitely resubscribe soon</div>
       <div class="chk-row"><input type="checkbox"> The service doesn't meet my needs</div>
       <div class="chk-row"><input type="checkbox"> It's too expensive for me</div>
     </div>
@@ -274,6 +282,10 @@ function showSurvey() {
 }
 
 function submitSurvey() {
+  ['chk-stay-1', 'chk-stay-2', 'chk-stay-3'].forEach(id => {
+    if (document.getElementById(id)?.checked) addPts(-3);
+  });
+
   const radios = document.querySelectorAll('input[name="reconsider"]');
   let val = 'yes';
   radios.forEach(r => { if (r.checked) val = r.value; });
@@ -290,7 +302,24 @@ function submitSurvey() {
   }
 }
 
-function adClick() { popBubble(pick(AD_MSGS)); }
-function manageClick() { popBubble('Modification is currently unavailable. Please try again later.'); }
+const RATING_LABELS = ['', 'Terrible', 'Bad', 'Okay', 'Good', 'Amazing!'];
+
+function setRating(n) {
+  G.rating = n;
+  const stars = document.querySelectorAll('#star-rating .star');
+  stars.forEach((s, i) => s.classList.toggle('active', i < n));
+  const msg = document.getElementById('rating-msg');
+  if (msg) msg.textContent = RATING_LABELS[n] || '';
+}
+
+function setSurveyRating(n) {
+  const stars = document.querySelectorAll('#survey-stars .star');
+  stars.forEach((s, i) => s.classList.toggle('active', i < n));
+  const msg = document.getElementById('survey-rating-msg');
+  if (msg) msg.textContent = RATING_LABELS[n] || '';
+}
+
+function adClick() { addPts(-5); popBubble(pick(AD_MSGS)); }
+function manageClick() { addPts(-5); popBubble('Modification is currently unavailable. Please try again later.'); }
 
 randName();

@@ -342,6 +342,15 @@ body {
 .final-phone { font-size: 20px; font-weight: bold; color: #c0392b; display: block; margin: 8px 0; }
 .final-score { font-size: 20px; font-weight: bold; margin-top: 16px; padding-top: 12px; border-top: 1px solid #ccc; }
 
+/* Star rating (final screen) */
+.rating-section { margin-top: 18px; padding-top: 14px; border-top: 1px solid #ccc; }
+.rating-label { font-size: 11px; color: #999; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; }
+.star-rating { font-size: 32px; letter-spacing: 5px; }
+.star-rating .star { color: #ddd; cursor: pointer; transition: color 0.12s; display: inline-block; }
+.star-rating .star.active { color: #f4c430; }
+.star-rating .star:hover { color: #f4c430; }
+.rating-msg { font-size: 12px; color: #888; margin-top: 6px; min-height: 18px; }
+
 /* Toasts & effects */
 .pts-toast {
   position: fixed;

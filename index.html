@@ -84,6 +84,17 @@
           Your next charge date is: <strong>Tomorrow</strong>
         </div>
         <div class="final-score" id="final-score"></div>
+        <div class="rating-section">
+          <div class="rating-label">Rate your cancellation experience</div>
+          <div class="star-rating" id="star-rating">
+            <span class="star" onclick="setRating(1)">★</span>
+            <span class="star" onclick="setRating(2)">★</span>
+            <span class="star" onclick="setRating(3)">★</span>
+            <span class="star" onclick="setRating(4)">★</span>
+            <span class="star" onclick="setRating(5)">★</span>
+          </div>
+          <div class="rating-msg" id="rating-msg"></div>
+        </div>
         <button class="btn btn-lg" style="margin-top:20px" onclick="resetGame()">Play Again</button>
       </div>
     </div>
